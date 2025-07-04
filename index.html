@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Clock - Joana Inacio</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data-1970-2030.min.js"></script>
+
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      select {
+        padding: 10px;
+        margin: 20px;
+        font-size: 16px;
+      }
+      .clock {
+        margin: 30px 0;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>World Clock</h1>
+
+    <label for="cities">Select a city:</label>
+    <select id="cities">
+      <option value="">Choose a city...</option>
+      <option value="Europe/Lisbon">Lisbon, Portugal</option>
+      <option value="Europe/Paris">Paris, France</option>
+      <option value="Asia/Tokyo">Tokyo, Japan</option>
+      <option value="Australia/Sydney">Sydney, Australia</option>
+      <option value="America/New_York">New York, USA</option>
+    </select>
+
+    <div class="clock" id="clock"></div>
+
+    <footer>
+      This project was coded with ❤️ by
+      <a href="https://github.com/JoanaInacio" target="_blank">Joana Inacio</a>
+      and is
+      <a
+        href="https://github.com/JoanaInacio/World-Clock-Project-Setup"
+        target="_blank"
+      >
+        open sourced on GitHub</a
+      >
+    </footer>
+
+    <script>
+      function showTime() {
+        let citySelect = document.getElementById("cities");
+        let clockDiv = document.getElementById("clock");
+        let timezone = citySelect.value;
+
+        if (timezone) {
+          let time = moment()
+            .tz(timezone)
+            .format("dddd, MMMM D, YYYY h:mm:ss A");
+          let cityText = citySelect.options[citySelect.selectedIndex].text;
+          clockDiv.innerHTML = `${time}<br>in ${cityText}`;
+        } else {
+          clockDiv.innerHTML = "";
+        }
+      }
+
+      let citySelect = document.getElementById("cities");
+      citySelect.addEventListener("change", function () {
+        showTime();
+        setInterval(showTime, 1000);
+      });
+    </script>
+  </body>
+</html>
